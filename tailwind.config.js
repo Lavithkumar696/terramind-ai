@@ -1,27 +1,28 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  darkMode: ['class', '[data-theme="dark"]'],
   theme: {
     extend: {
       colors: {
-        midnight: '#061A1B',
-        'midnight-deep': '#04141A',
-        'midnight-soft': '#0A2730',
+        midnight: 'var(--bg-primary)',
+        'midnight-deep': 'var(--bg-deep)',
+        'midnight-soft': 'var(--bg-soft)',
         ocean: {
-          DEFAULT: '#2378A5',
-          deep: '#1A5478',
-          light: '#4FA8D8',
-          glow: '#6FC4E8',
+          DEFAULT: 'var(--ocean)',
+          deep: 'var(--ocean)',
+          light: 'var(--ocean-light)',
+          glow: 'var(--ocean-light)',
         },
         emerald: {
-          DEFAULT: '#39D98A',
-          deep: '#1FA868',
-          light: '#5FEBA0',
-          glow: '#7DF5B8',
+          DEFAULT: 'var(--emerald)',
+          deep: 'var(--emerald-deep)',
+          light: 'var(--emerald)',
+          glow: 'var(--emerald)',
         },
         mint: {
-          DEFAULT: '#B8F3D0',
-          soft: '#D6FBE5',
+          DEFAULT: 'var(--text-primary)',
+          soft: 'var(--text-primary)',
         },
       },
       fontFamily: {

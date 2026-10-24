@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import type { DisasterEvent } from '@/types';
 import { HAZARD_MAP, SEVERITY_META } from '@/types';
+import { useCountUp } from '@/hooks/useCountUp';
 
 export function DashboardStats({ events }: { events: DisasterEvent[] }) {
   const stats = useMemo(() => {
@@ -19,25 +20,29 @@ export function DashboardStats({ events }: { events: DisasterEvent[] }) {
 
   return (
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-      <StatCard label="Active Events" value={stats.total.toString()} accent="#39D98A" />
+      <StatCard label="Active Events" value={stats.total} accent="#39D98A" animated />
       <StatCard
         label="Top Hazard"
         value={stats.topCat ? HAZARD_MAP[stats.topCat[0] as keyof typeof HAZARD_MAP].short : '—'}
         accent={stats.topCat ? HAZARD_MAP[stats.topCat[0] as keyof typeof HAZARD_MAP].color : '#4FA8D8'}
         sub={stats.topCat ? `${stats.topCat[1]} events` : undefined}
       />
-      <StatCard label="Severe / Extreme" value={stats.extreme.toString()} accent="#FFB054" />
+      <StatCard label="Severe / Extreme" value={stats.extreme} accent="#FFB054" animated />
       <StatCard label="Max Magnitude" value={stats.maxMag ? stats.maxMag.toFixed(1) : '—'} accent="#6FC4E8" />
     </div>
   );
 }
 
-function StatCard({ label, value, accent, sub }: { label: string; value: string; accent: string; sub?: string }) {
+function StatCard({ label, value, accent, sub, animated }: { label: string; value: string | number; accent: string; sub?: string; animated?: boolean }) {
+  const numericValue = typeof value === 'number' ? value : 0;
+  const count = useCountUp(numericValue, 1000, !!animated && typeof value === 'number');
+  const displayValue = typeof value === 'number' ? Math.round(count).toString() : value;
+
   return (
-    <div className="glass-dark rounded-xl p-4">
+    <div className="surface-card group p-4 hover:-translate-y-0.5">
       <p className="font-mono text-[10px] tracking-widest text-mint/40">{label.toUpperCase()}</p>
-      <p className="mt-1.5 font-display text-2xl font-semibold" style={{ color: accent }}>
-        {value}
+      <p className="mt-1.5 font-display text-2xl font-semibold transition-colors" style={{ color: accent }}>
+        {displayValue}
       </p>
       {sub && <p className="mt-0.5 text-xs text-mint/45">{sub}</p>}
     </div>
@@ -69,7 +74,7 @@ export function CategoryBreakdown({ events }: { events: DisasterEvent[] }) {
               </div>
               <div className="h-1.5 overflow-hidden rounded-full bg-white/5">
                 <div
-                  className="h-full rounded-full transition-all duration-700"
+                  className="h-full rounded-full transition-all duration-700 ease-out"
                   style={{ width: `${pct}%`, background: meta.color, boxShadow: `0 0 8px ${meta.color}55` }}
                 />
               </div>
@@ -105,10 +110,10 @@ export function SeverityTimeline({ events }: { events: DisasterEvent[] }) {
       <h3 className="mb-4 font-mono text-xs tracking-widest text-mint/50">EVENT TIMELINE</h3>
       <div className="flex items-end justify-between gap-3" style={{ height: 120 }}>
         {buckets.map((b) => (
-          <div key={b.label} className="flex flex-1 flex-col items-center gap-2">
+          <div key={b.label} className="group flex flex-1 flex-col items-center gap-2">
             <div className="flex w-full flex-1 items-end justify-center">
               <div
-                className="relative w-full max-w-[48px] rounded-t-lg transition-all duration-700"
+                className="relative w-full max-w-[48px] rounded-t-lg transition-all duration-700 ease-out hover:brightness-110"
                 style={{ height: `${(b.count / max) * 100}%`, background: 'linear-gradient(180deg, #39D98A, #2378A5)' }}
                 title={`${b.count} events`}
               >

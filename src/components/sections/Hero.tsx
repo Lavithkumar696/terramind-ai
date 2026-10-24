@@ -43,7 +43,7 @@ export default function Hero() {
       </div>
 
       {/* Vignette */}
-      <div className="pointer-events-none absolute inset-0 -z-[4] bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(6,26,27,0.65)_100%)]" />
+      <div className="pointer-events-none absolute inset-0 -z-[4] bg-[radial-gradient(ellipse_at_center,transparent_30%,color-mix(in_srgb,var(--bg-primary)_70%,transparent)_100%)]" />
 
       {/* Content */}
       <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-6 pt-24 sm:px-8">
@@ -91,14 +91,16 @@ export default function Hero() {
         >
           <a
             href="#dashboard"
-            className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald to-ocean px-6 py-3.5 text-sm font-semibold text-midnight transition-transform hover:scale-[1.03]"
+            onClick={(e) => { e.preventDefault(); document.getElementById('dashboard')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }}
+            className="btn-primary group relative overflow-hidden rounded-xl px-6 py-3.5 text-sm font-semibold"
           >
             <span className="relative z-10">Explore the live map</span>
             <span className="absolute inset-0 -translate-x-full bg-white/20 transition-transform duration-500 group-hover:translate-x-full" />
           </a>
           <a
             href="#ai-analyst"
-            className="rounded-xl border border-white/15 bg-white/5 px-6 py-3.5 text-sm font-medium text-mint backdrop-blur-md transition-colors hover:border-emerald/30 hover:bg-emerald/5"
+            onClick={(e) => { e.preventDefault(); document.getElementById('ai-analyst')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }}
+            className="rounded-xl border border-white/15 bg-white/5 px-6 py-3.5 text-sm font-medium text-mint backdrop-blur-md transition-all hover:border-emerald/30 hover:bg-emerald/5 hover:scale-[1.02]"
           >
             Ask the AI analyst
           </a>

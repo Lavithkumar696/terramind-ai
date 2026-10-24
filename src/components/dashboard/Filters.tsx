@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Search, SlidersHorizontal, X, Globe2, MapPinned, ChevronDown, Check } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { HAZARDS, SEVERITY_META } from '@/types';
 import type { HazardCategory, Severity } from '@/types';
 
@@ -84,7 +85,7 @@ export default function Filters({ state, onChange, resultCount, totalCount, avai
               value={state.query}
               onChange={(e) => onChange({ ...state, query: e.target.value })}
               placeholder="Search events, places, sources, countries…"
-              className="w-full rounded-xl border border-white/8 bg-white/[0.03] py-2.5 pl-10 pr-4 text-sm text-mint placeholder:text-mint/35 focus:border-emerald/40 focus:outline-none focus:ring-1 focus:ring-emerald/30"
+              className="w-full rounded-xl border border-white/8 bg-white/[0.03] py-2.5 pl-10 pr-4 text-sm text-mint placeholder:text-mint/35 transition-all focus:border-emerald/40 focus:outline-none focus:ring-2 focus:ring-emerald/20"
             />
           </div>
           <div className="flex items-center gap-1.5 self-start rounded-xl border border-white/8 bg-white/[0.02] p-1 sm:self-auto">
@@ -92,10 +93,10 @@ export default function Filters({ state, onChange, resultCount, totalCount, avai
               <button
                 key={t.label}
                 onClick={() => onChange({ ...state, hours: t.hours })}
-                className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
+                className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-all duration-200 ${
                   state.hours === t.hours
-                    ? 'bg-emerald/15 text-emerald'
-                    : 'text-mint/55 hover:text-mint'
+                    ? 'bg-emerald/15 text-emerald shadow-sm'
+                    : 'text-mint/55 hover:text-mint hover:bg-white/5'
                 }`}
               >
                 {t.label}
@@ -113,14 +114,14 @@ export default function Filters({ state, onChange, resultCount, totalCount, avai
               <button
                 key={h.category}
                 onClick={() => toggleCategory(h.category)}
-                className={`flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs transition-all ${
+                className={`flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs transition-all duration-200 ${
                   active
-                    ? 'border-transparent text-midnight'
-                    : 'border-white/10 text-mint/65 hover:border-white/20'
+                    ? 'border-transparent text-midnight shadow-sm'
+                    : 'border-white/10 text-mint/65 hover:border-white/20 hover:scale-105'
                 }`}
                 style={active ? { background: h.color } : {}}
               >
-                <span className="h-1.5 w-1.5 rounded-full" style={{ background: active ? '#061A1B' : h.color }} />
+                <span className="h-1.5 w-1.5 rounded-full" style={{ background: active ? 'var(--midnight-text)' : h.color }} />
                 {h.label}
               </button>
             );
@@ -137,13 +138,13 @@ export default function Filters({ state, onChange, resultCount, totalCount, avai
               <button
                 key={s}
                 onClick={() => toggleSeverity(s)}
-                className={`rounded-full border px-2.5 py-0.5 text-[11px] transition-all ${
-                  active ? 'border-transparent' : 'border-white/10 hover:border-white/20'
+                className={`rounded-full border px-2.5 py-0.5 text-[11px] transition-all duration-200 ${
+                  active ? 'border-transparent shadow-sm' : 'border-white/10 hover:border-white/20 hover:scale-105'
                 }`}
                 style={
                   active
                     ? { background: `${meta.color}30`, color: meta.color, borderColor: `${meta.color}55` }
-                    : { color: 'rgba(184,243,208,0.55)' }
+                    : { color: 'var(--text-muted)' }
                 }
               >
                 {meta.label}
@@ -153,7 +154,7 @@ export default function Filters({ state, onChange, resultCount, totalCount, avai
           {hasFilters && (
             <button
               onClick={reset}
-              className="ml-auto flex items-center gap-1 text-xs text-mint/45 hover:text-mint"
+              className="ml-auto flex items-center gap-1 text-xs text-mint/45 transition-colors hover:text-mint"
             >
               <X className="h-3 w-3" /> Clear
             </button>
@@ -221,10 +222,10 @@ function Dropdown({
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen((v) => !v)}
-        className={`flex items-center gap-2 rounded-lg border px-3 py-1.5 text-xs transition-colors ${
+        className={`flex items-center gap-2 rounded-lg border px-3 py-1.5 text-xs transition-all duration-200 ${
           selected.length > 0
             ? 'border-emerald/30 bg-emerald/10 text-emerald'
-            : 'border-white/10 text-mint/65 hover:border-white/20'
+            : 'border-white/10 text-mint/65 hover:border-white/20 hover:bg-white/5'
         }`}
       >
         {icon}
@@ -232,27 +233,35 @@ function Dropdown({
         {selected.length > 0 && (
           <span className="rounded-full bg-emerald/20 px-1.5 text-[10px]">{selected.length}</span>
         )}
-        <ChevronDown className={`h-3 w-3 transition-transform ${open ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
       </button>
-      {open && (
-        <div className="absolute left-0 top-full z-30 mt-1 max-h-56 w-56 overflow-y-auto rounded-xl border border-white/10 bg-midnight-deep p-1.5 shadow-2xl">
-          {options.map((opt) => {
-            const active = selected.includes(opt);
-            return (
-              <button
-                key={opt}
-                onClick={() => onToggle(opt)}
-                className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-xs transition-colors ${
-                  active ? 'bg-emerald/10 text-emerald' : 'text-mint/70 hover:bg-white/5'
-                }`}
-              >
-                {opt}
-                {active && <Check className="h-3 w-3" />}
-              </button>
-            );
-          })}
-        </div>
-      )}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -8, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.96 }}
+            transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute left-0 top-full z-30 mt-1 max-h-56 w-56 overflow-y-auto rounded-xl border border-white/10 bg-midnight-deep p-1.5 shadow-2xl"
+          >
+            {options.map((opt) => {
+              const active = selected.includes(opt);
+              return (
+                <button
+                  key={opt}
+                  onClick={() => onToggle(opt)}
+                  className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-xs transition-colors ${
+                    active ? 'bg-emerald/10 text-emerald' : 'text-mint/70 hover:bg-white/5'
+                  }`}
+                >
+                  {opt}
+                  {active && <Check className="h-3 w-3" />}
+                </button>
+              );
+            })}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

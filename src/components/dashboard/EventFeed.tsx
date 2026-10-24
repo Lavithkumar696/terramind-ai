@@ -47,14 +47,15 @@ export default function EventFeed({ events, activeId, onSelect }: EventFeedProps
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: Math.min(i * 0.03, 0.4), duration: 0.4 }}
             onClick={() => onSelect(e)}
-            className={`flex w-full items-center gap-3 rounded-xl border p-3.5 text-left transition-all ${
+            whileHover={{ x: 2 }}
+            className={`flex w-full items-center gap-3 rounded-xl border p-3.5 text-left transition-all duration-200 ${
               active
-                ? 'border-emerald/40 bg-emerald/8'
+                ? 'border-emerald/40 bg-emerald/8 shadow-[0_0_12px_rgba(57,217,138,0.12)]'
                 : 'border-white/5 bg-white/[0.02] hover:border-white/12 hover:bg-white/[0.04]'
             }`}
           >
             <span
-              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg"
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-transform duration-200"
               style={{ background: `${meta.color}18`, border: `1px solid ${meta.color}33` }}
             >
               <span className="h-2 w-2 rounded-full" style={{ background: meta.color, boxShadow: `0 0 6px ${meta.color}` }} />
@@ -67,7 +68,7 @@ export default function EventFeed({ events, activeId, onSelect }: EventFeedProps
                 <span className="font-mono">{e.source}</span>
               </p>
             </div>
-            <span className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium" style={{ background: `${sev.color}22`, color: sev.color }}>
+            <span className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium transition-transform duration-200" style={{ background: `${sev.color}22`, color: sev.color }}>
               {sev.label}
             </span>
           </motion.button>

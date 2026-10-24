@@ -2,9 +2,118 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================================
+   THEME SYSTEM — CSS Variables for Light / Dark modes
+   ============================================================ */
+
 @layer base {
-  :root {
+  :root,
+  [data-theme='dark'] {
     color-scheme: dark;
+
+    /* Base surfaces */
+    --bg-primary: #061A1B;
+    --bg-deep: #04141A;
+    --bg-soft: #0A2730;
+    --bg-elevated: #0a2228;
+
+    /* Text */
+    --text-primary: #B8F3D0;
+    --text-secondary: rgba(184, 243, 208, 0.7);
+    --text-muted: rgba(184, 243, 208, 0.5);
+    --text-faint: rgba(184, 243, 208, 0.35);
+
+    /* Borders */
+    --border-subtle: rgba(255, 255, 255, 0.06);
+    --border-soft: rgba(255, 255, 255, 0.08);
+    --border-medium: rgba(255, 255, 255, 0.12);
+    --border-emerald: rgba(57, 217, 138, 0.25);
+    --border-ocean: rgba(35, 120, 165, 0.25);
+
+    /* Glass surfaces */
+    --glass-bg: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    --glass-dark-bg: rgba(6, 20, 26, 0.55);
+    --glass-dark-border: rgba(255, 255, 255, 0.06);
+    --glass-dark-shadow: 0 8px 40px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+    /* Overlays */
+    --overlay-bg: rgba(6, 26, 27, 0.6);
+    --skeleton-base: rgba(255, 255, 255, 0.04);
+    --skeleton-hi: rgba(255, 255, 255, 0.08);
+
+    /* Accent colors (shared across themes) */
+    --emerald: #39D98A;
+    --emerald-deep: #1FA868;
+    --ocean: #2378A5;
+    --ocean-light: #4FA8D8;
+    --midnight-text: #061A1B;
+
+    /* Input */
+    --input-bg: rgba(255, 255, 255, 0.03);
+    --input-border: rgba(255, 255, 255, 0.08);
+    --input-focus-border: rgba(57, 217, 138, 0.4);
+    --input-focus-ring: rgba(57, 217, 138, 0.2);
+
+    /* Scrollbar */
+    --scrollbar-track: rgba(6, 26, 27, 0.5);
+    --scrollbar-thumb: linear-gradient(180deg, rgba(35,120,165,0.4), rgba(57,217,138,0.3));
+    --scrollbar-thumb-hover: linear-gradient(180deg, rgba(35,120,165,0.6), rgba(57,217,138,0.5));
+  }
+
+  [data-theme='light'] {
+    color-scheme: light;
+
+    /* Base surfaces */
+    --bg-primary: #F4F7F5;
+    --bg-deep: #E8EEEC;
+    --bg-soft: #FFFFFF;
+    --bg-elevated: #FFFFFF;
+
+    /* Text */
+    --text-primary: #0D3829;
+    --text-secondary: rgba(13, 56, 41, 0.72);
+    --text-muted: rgba(13, 56, 41, 0.55);
+    --text-faint: rgba(13, 56, 41, 0.38);
+
+    /* Borders */
+    --border-subtle: rgba(13, 56, 41, 0.08);
+    --border-soft: rgba(13, 56, 41, 0.1);
+    --border-medium: rgba(13, 56, 41, 0.16);
+    --border-emerald: rgba(31, 168, 104, 0.3);
+    --border-ocean: rgba(35, 120, 165, 0.25);
+
+    /* Glass surfaces */
+    --glass-bg: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(255,255,255,0.6));
+    --glass-border: rgba(13, 56, 41, 0.1);
+    --glass-shadow: 0 8px 32px rgba(13, 56, 41, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    --glass-dark-bg: rgba(255, 255, 255, 0.75);
+    --glass-dark-border: rgba(13, 56, 41, 0.08);
+    --glass-dark-shadow: 0 8px 40px rgba(13, 56, 41, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+
+    /* Overlays */
+    --overlay-bg: rgba(244, 247, 245, 0.7);
+    --skeleton-base: rgba(13, 56, 41, 0.05);
+    --skeleton-hi: rgba(13, 56, 41, 0.1);
+
+    /* Accent colors */
+    --emerald: #1FA868;
+    --emerald-deep: #178A54;
+    --ocean: #2378A5;
+    --ocean-light: #2E7DAA;
+    --midnight-text: #FFFFFF;
+
+    /* Input */
+    --input-bg: rgba(13, 56, 41, 0.03);
+    --input-border: rgba(13, 56, 41, 0.12);
+    --input-focus-border: rgba(31, 168, 104, 0.5);
+    --input-focus-ring: rgba(31, 168, 104, 0.15);
+
+    /* Scrollbar */
+    --scrollbar-track: rgba(13, 56, 41, 0.04);
+    --scrollbar-thumb: linear-gradient(180deg, rgba(35,120,165,0.3), rgba(31,168,104,0.25));
+    --scrollbar-thumb-hover: linear-gradient(180deg, rgba(35,120,165,0.45), rgba(31,168,104,0.4));
   }
 
   * {
@@ -19,15 +128,16 @@
 
   body {
     margin: 0;
-    background-color: #061A1B;
-    color: #B8F3D0;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     font-family: 'Inter', system-ui, sans-serif;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   ::selection {
     background: rgba(57, 217, 138, 0.25);
-    color: #B8F3D0;
+    color: var(--text-primary);
   }
 
   ::-webkit-scrollbar {
@@ -35,58 +145,58 @@
     height: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: rgba(6, 26, 27, 0.5);
+    background: var(--scrollbar-track);
   }
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, rgba(35, 120, 165, 0.4), rgba(57, 217, 138, 0.3));
+    background: var(--scrollbar-thumb);
     border-radius: 10px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, rgba(35, 120, 165, 0.6), rgba(57, 217, 138, 0.5));
+    background: var(--scrollbar-thumb-hover);
+  }
+
+  /* Accessible focus ring */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid var(--emerald);
+    outline-offset: 2px;
+    border-radius: 4px;
   }
 }
 
 @layer components {
   .glass {
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.04),
-      rgba(255, 255, 255, 0.01)
-    );
+    background: var(--glass-bg);
     backdrop-filter: blur(16px) saturate(140%);
     -webkit-backdrop-filter: blur(16px) saturate(140%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow:
-      0 8px 32px rgba(0, 0, 0, 0.35),
-      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
   }
 
   .glass-emerald {
     background: linear-gradient(
       135deg,
-      rgba(57, 217, 138, 0.08),
-      rgba(35, 120, 165, 0.04)
+      color-mix(in srgb, var(--emerald) 10%, transparent),
+      color-mix(in srgb, var(--ocean) 5%, transparent)
     );
     backdrop-filter: blur(16px) saturate(140%);
     -webkit-backdrop-filter: blur(16px) saturate(140%);
-    border: 1px solid rgba(57, 217, 138, 0.18);
-    box-shadow:
-      0 8px 32px rgba(0, 0, 0, 0.35),
-      inset 0 1px 0 rgba(184, 243, 208, 0.08);
+    border: 1px solid color-mix(in srgb, var(--emerald) 20%, transparent);
+    box-shadow: var(--glass-shadow);
   }
 
   .glass-dark {
-    background: rgba(6, 20, 26, 0.55);
+    background: var(--glass-dark-bg);
     backdrop-filter: blur(20px) saturate(130%);
     -webkit-backdrop-filter: blur(20px) saturate(130%);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    box-shadow:
-      0 8px 40px rgba(0, 0, 0, 0.45),
-      inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--glass-dark-border);
+    box-shadow: var(--glass-dark-shadow);
   }
 
   .text-gradient {
-    background: linear-gradient(135deg, #B8F3D0 0%, #39D98A 45%, #4FA8D8 100%);
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--emerald) 45%, var(--ocean-light) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -94,7 +204,7 @@
   }
 
   .text-gradient-emerald {
-    background: linear-gradient(135deg, #B8F3D0, #39D98A);
+    background: linear-gradient(135deg, var(--text-primary), var(--emerald));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -102,21 +212,47 @@
   }
 
   .glow-emerald {
-    box-shadow: 0 0 24px rgba(57, 217, 138, 0.25), 0 0 48px rgba(57, 217, 138, 0.1);
+    box-shadow: 0 0 24px color-mix(in srgb, var(--emerald) 25%, transparent), 0 0 48px color-mix(in srgb, var(--emerald) 10%, transparent);
   }
   .glow-ocean {
-    box-shadow: 0 0 24px rgba(35, 120, 165, 0.25), 0 0 48px rgba(35, 120, 165, 0.1);
+    box-shadow: 0 0 24px color-mix(in srgb, var(--ocean) 25%, transparent), 0 0 48px color-mix(in srgb, var(--ocean) 10%, transparent);
   }
 
   .skeleton {
     background: linear-gradient(
       90deg,
-      rgba(255, 255, 255, 0.04) 25%,
-      rgba(255, 255, 255, 0.08) 37%,
-      rgba(255, 255, 255, 0.04) 63%
+      var(--skeleton-base) 25%,
+      var(--skeleton-hi) 37%,
+      var(--skeleton-base) 63%
     );
     background-size: 1000px 100%;
     animation: shimmer 2.5s linear infinite;
+  }
+
+  /* Reusable surface card */
+  .surface-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-soft);
+    border-radius: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .surface-card:hover {
+    border-color: var(--border-medium);
+    box-shadow: 0 8px 24px color-mix(in srgb, var(--bg-deep) 20%, transparent);
+  }
+
+  /* Theme-aware button */
+  .btn-primary {
+    background: linear-gradient(135deg, var(--emerald), var(--ocean));
+    color: var(--midnight-text);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .btn-primary:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 20px color-mix(in srgb, var(--emerald) 30%, transparent);
+  }
+  .btn-primary:active {
+    transform: scale(0.98);
   }
 }
 
