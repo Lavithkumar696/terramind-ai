@@ -17,7 +17,7 @@ export default function Preloader() {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.8, ease: 'easeInOut' }}
-          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-midnight"
+          className="fixed inset-0 z-[100] flex flex-col items-center justify-center" style={{ backgroundColor: 'var(--bg-primary)' }}
         >
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}

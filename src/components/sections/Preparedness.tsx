@@ -75,7 +75,7 @@ export default function Preparedness() {
                   href="https://www.weather.gov"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-xl border border-emerald/30 bg-emerald/10 px-4 py-2.5 text-sm text-emerald transition-colors hover:bg-emerald/15"
+                  className="rounded-xl border border-emerald/30 bg-emerald/10 px-4 py-2.5 text-sm text-emerald transition-all duration-200 hover:bg-emerald/15 hover:scale-[1.03]"
                 >
                   NOAA / NWS (US)
                 </a>
@@ -83,7 +83,7 @@ export default function Preparedness() {
                   href="https://www.ready.gov"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-xl border border-ocean/30 bg-ocean/10 px-4 py-2.5 text-sm text-ocean-light transition-colors hover:bg-ocean/15"
+                  className="rounded-xl border border-ocean/30 bg-ocean/10 px-4 py-2.5 text-sm text-ocean-light transition-all duration-200 hover:bg-ocean/15 hover:scale-[1.03]"
                 >
                   Ready.gov
                 </a>

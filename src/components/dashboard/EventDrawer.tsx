@@ -23,7 +23,7 @@ export default function EventDrawer({ event, onClose, onAskAI }: EventDrawerProp
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 z-40 bg-midnight/60 backdrop-blur-sm"
+            className="fixed inset-0 z-40 backdrop-blur-sm" style={{ background: 'var(--overlay-bg)' }}
           />
           <motion.aside
             initial={{ x: '100%' }}
@@ -34,7 +34,7 @@ export default function EventDrawer({ event, onClose, onAskAI }: EventDrawerProp
           >
             <div className="flex items-center justify-between border-b border-white/5 px-5 py-4">
               <span className="font-mono text-xs tracking-widest text-mint/60">EVENT DETAIL</span>
-              <button onClick={onClose} className="rounded-lg p-1.5 text-mint/60 hover:bg-white/5 hover:text-mint" aria-label="Close">
+              <button onClick={onClose} className="rounded-lg p-1.5 text-mint/60 transition-all duration-200 hover:bg-white/5 hover:text-mint active:scale-90" aria-label="Close">
                 <X className="h-5 w-5" />
               </button>
             </div>
@@ -179,7 +179,7 @@ export default function EventDrawer({ event, onClose, onAskAI }: EventDrawerProp
                     {onAskAI && (
                       <button
                         onClick={() => onAskAI(event)}
-                        className="mt-4 w-full rounded-xl bg-gradient-to-br from-emerald to-ocean px-4 py-3 text-sm font-semibold text-midnight transition-transform hover:scale-[1.02]"
+                        className="btn-primary mt-4 w-full rounded-xl px-4 py-3 text-sm font-semibold"
                       >
                         Ask the AI analyst about this event
                       </button>

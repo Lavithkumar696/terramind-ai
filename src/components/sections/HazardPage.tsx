@@ -169,7 +169,7 @@ export default function HazardPage({ category, onBack, onAskAI }: HazardPageProp
         {/* Back */}
         <button
           onClick={onBack}
-          className="mb-6 flex items-center gap-2 text-sm text-mint/55 transition-colors hover:text-mint"
+          className="mb-6 flex items-center gap-2 text-sm text-mint/55 transition-all duration-200 hover:text-mint hover:translate-x-[-4px]"
         >
           <ArrowLeft className="h-4 w-4" /> Back to explorer
         </button>
@@ -235,7 +235,7 @@ export default function HazardPage({ category, onBack, onAskAI }: HazardPageProp
                         key={e.id}
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="flex items-center gap-3 rounded-xl border border-white/5 bg-white/[0.02] p-3.5"
+                        className="flex items-center gap-3 rounded-xl border border-white/5 bg-white/[0.02] p-3.5 transition-all duration-200 hover:border-white/12 hover:bg-white/[0.04]"
                       >
                         <span
                           className="h-2 w-2 shrink-0 rounded-full"
@@ -290,7 +290,7 @@ export default function HazardPage({ category, onBack, onAskAI }: HazardPageProp
                       href={l.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 rounded-xl border border-white/8 bg-white/[0.02] px-4 py-3 text-sm text-mint/75 transition-colors hover:border-emerald/30 hover:text-mint"
+                      className="flex items-center gap-2 rounded-xl border border-white/8 bg-white/[0.02] px-4 py-3 text-sm text-mint/75 transition-all duration-200 hover:border-emerald/30 hover:text-mint hover:scale-[1.02]"
                     >
                       <ExternalLink className="h-4 w-4 text-ocean-light" />
                       {l.label}
@@ -303,7 +303,7 @@ export default function HazardPage({ category, onBack, onAskAI }: HazardPageProp
             <Reveal delay={0.3}>
               <button
                 onClick={askAboutCategory}
-                className="w-full rounded-2xl bg-gradient-to-br from-emerald to-ocean px-5 py-4 text-sm font-semibold text-midnight transition-transform hover:scale-[1.02]"
+                className="btn-primary w-full rounded-2xl px-5 py-4 text-sm font-semibold"
               >
                 Ask the AI analyst about {meta.label.toLowerCase()}
               </button>

@@ -81,8 +81,8 @@ export default function WorldMap({ width = 1000, height = 500, events, onMarkerC
     >
       <defs>
         <radialGradient id="oceanGrad" cx="50%" cy="50%" r="70%">
-          <stop offset="0%" stopColor="#0A2730" stopOpacity="0.6" />
-          <stop offset="100%" stopColor="#04141A" stopOpacity="0.2" />
+          <stop offset="0%" stopColor="var(--bg-soft)" stopOpacity="0.6" />
+          <stop offset="100%" stopColor="var(--bg-deep)" stopOpacity="0.2" />
         </radialGradient>
         <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
           <feGaussianBlur stdDeviation="2.5" result="blur" />
@@ -109,10 +109,10 @@ export default function WorldMap({ width = 1000, height = 500, events, onMarkerC
 
       {/* continents */}
       <g
-        fill="#1A4530"
-        fillOpacity="0.55"
-        stroke="#39D98A"
-        strokeOpacity="0.25"
+        fill="var(--emerald)"
+        fillOpacity="0.15"
+        stroke="var(--emerald)"
+        strokeOpacity="0.3"
         strokeWidth="0.8"
         strokeLinejoin="round"
       >
@@ -182,7 +182,7 @@ export default function WorldMap({ width = 1000, height = 500, events, onMarkerC
                   width={tipW}
                   height={tipH}
                   rx={10}
-                  fill="#04141A"
+                  fill="var(--bg-deep)"
                   fillOpacity="0.95"
                   stroke={hovered.color}
                   strokeOpacity="0.35"
@@ -191,7 +191,7 @@ export default function WorldMap({ width = 1000, height = 500, events, onMarkerC
                 <text x={12} y={20} fill={hovered.color} fontSize="11" fontWeight="600" fontFamily="monospace">
                   {hovered.source.toUpperCase()}
                 </text>
-                <text x={12} y={38} fill="#B8F3D0" fontSize="12" fontWeight="500">
+                <text x={12} y={38} fill="var(--text-primary)" fontSize="12" fontWeight="500">
                   {hovered.magnitude !== undefined
                     ? `M${hovered.magnitude.toFixed(1)} — `
                     : ''}
@@ -199,7 +199,7 @@ export default function WorldMap({ width = 1000, height = 500, events, onMarkerC
                     ? hovered.title.slice(0, 30) + '…'
                     : hovered.title}
                 </text>
-                <text x={12} y={54} fill="#B8F3D0" fillOpacity="0.5" fontSize="10">
+                <text x={12} y={54} fill="var(--text-primary)" fillOpacity="0.5" fontSize="10">
                   {hovered.place || hovered.country || `${hovered.lat.toFixed(2)}°, ${hovered.lon.toFixed(2)}°`}
                   {' · '}
                   {hovered.severity}

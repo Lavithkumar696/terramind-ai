@@ -49,7 +49,7 @@ export default function Sources() {
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ y: -4 }}
-                className="glass-dark block h-full rounded-2xl p-6 transition-colors hover:border-emerald/20"
+                className="glass-dark block h-full rounded-2xl p-6 transition-all duration-300 hover:border-emerald/20 hover:shadow-lg"
               >
                 <div className="flex items-start justify-between">
                   <Database className="h-6 w-6 text-emerald/70" />

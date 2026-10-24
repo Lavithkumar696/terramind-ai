@@ -37,12 +37,12 @@ export default function Explorer({ onSelect }: ExplorerProps) {
                   onMouseLeave={() => setHovered(null)}
                   whileHover={{ y: -6 }}
                   onClick={() => onSelect?.(h.category)}
-                  className="group relative w-full overflow-hidden rounded-2xl p-6 text-left transition-all"
+                  className="group relative w-full overflow-hidden rounded-2xl p-6 text-left transition-all duration-300 hover:shadow-lg"
                   style={{
                     background: isHovered
-                      ? `linear-gradient(135deg, ${h.color}15, ${h.color}05)`
-                      : 'rgba(255,255,255,0.02)',
-                    border: `1px solid ${isHovered ? `${h.color}40` : 'rgba(255,255,255,0.06)'}`,
+                      ? `linear-gradient(135deg, ${h.color}18, ${h.color}08)`
+                      : 'var(--bg-elevated)',
+                    border: `1px solid ${isHovered ? `${h.color}50` : 'var(--border-soft)'}`,
                   }}
                 >
                   <div

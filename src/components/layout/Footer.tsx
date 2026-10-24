@@ -68,14 +68,14 @@ export default function Footer() {
               <div className="mt-4 flex gap-2">
                 <button
                   type="button"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/8 text-mint/60 hover:border-emerald/30 hover:text-emerald"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/8 text-mint/60 transition-all duration-200 hover:border-emerald/30 hover:text-emerald hover:scale-110"
                   aria-label="GitHub"
                 >
                   <Github className="h-4 w-4" />
                 </button>
                 <button
                   type="button"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/8 text-mint/60 hover:border-emerald/30 hover:text-emerald"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/8 text-mint/60 transition-all duration-200 hover:border-emerald/30 hover:text-emerald hover:scale-110"
                   aria-label="Email"
                 >
                   <Mail className="h-4 w-4" />
@@ -116,7 +116,7 @@ function FooterCol({
               target={l.ext ? '_blank' : undefined}
               rel={l.ext ? 'noopener noreferrer' : undefined}
               onClick={(e) => onLinkClick(e, l.href)}
-              className="text-sm text-mint/55 transition-colors hover:text-emerald"
+              className="text-sm text-mint/55 transition-colors duration-200 hover:text-emerald"
             >
               {l.label}
             </a>

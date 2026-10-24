@@ -125,12 +125,12 @@ export default function Dashboard({ onAskAI, preselectCategory }: DashboardProps
                 }}
               />
               {loading && (
-                <div className="absolute inset-0 flex items-center justify-center bg-midnight/40 backdrop-blur-sm">
+                <div className="absolute inset-0 flex items-center justify-center backdrop-blur-sm" style={{ background: 'var(--overlay-bg)' }}>
                   <div className="skeleton h-32 w-32 rounded-full" />
                 </div>
               )}
               {data?.usedDemo && (
-                <div className="absolute bottom-3 left-3 flex items-center gap-2 rounded-lg bg-amber-400/10 px-3 py-1.5 text-xs text-amber-200 backdrop-blur-md">
+                <div className="absolute bottom-3 left-3 flex items-center gap-2 rounded-lg bg-amber-400/10 px-3 py-1.5 text-xs text-amber-500 backdrop-blur-md">
                   <Info className="h-3.5 w-3.5" />
                   Showing demo data — live feeds unreachable
                 </div>

@@ -144,7 +144,7 @@ export default function AIAnalyst({ contextEvents = [], injectedQuestion }: AIAn
                   key={s}
                   onClick={() => send(s)}
                   disabled={loading}
-                  className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs text-mint/70 transition-colors hover:border-emerald/30 hover:text-mint disabled:opacity-50"
+                  className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs text-mint/70 transition-all duration-200 hover:border-emerald/30 hover:text-mint hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"
                 >
                   {s}
                 </button>
@@ -177,6 +177,7 @@ export default function AIAnalyst({ contextEvents = [], injectedQuestion }: AIAn
                     key={i}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                     className={`flex gap-3 ${m.role === 'user' ? 'flex-row-reverse' : ''}`}
                   >
                     <span
@@ -215,9 +216,13 @@ export default function AIAnalyst({ contextEvents = [], injectedQuestion }: AIAn
               </AnimatePresence>
 
               {error && (
-                <div className="rounded-xl border border-amber-400/30 bg-amber-400/5 p-3 text-sm text-amber-200">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="rounded-xl border border-amber-400/30 bg-amber-400/5 p-3 text-sm text-amber-200"
+                >
                   {error}
-                </div>
+                </motion.div>
               )}
             </div>
 
@@ -233,12 +238,12 @@ export default function AIAnalyst({ contextEvents = [], injectedQuestion }: AIAn
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="Ask the AI analyst…"
-                  className="flex-1 rounded-xl border border-white/8 bg-white/[0.03] px-4 py-2.5 text-sm text-mint placeholder:text-mint/35 focus:border-emerald/40 focus:outline-none focus:ring-1 focus:ring-emerald/30"
+                  className="flex-1 rounded-xl border border-white/8 bg-white/[0.03] px-4 py-2.5 text-sm text-mint placeholder:text-mint/35 transition-all focus:border-emerald/40 focus:outline-none focus:ring-2 focus:ring-emerald/20"
                 />
                 <button
                   type="submit"
                   disabled={loading || !input.trim()}
-                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-emerald to-ocean text-midnight transition-transform hover:scale-105 disabled:opacity-40"
+                  className="btn-primary flex h-10 w-10 items-center justify-center rounded-xl disabled:opacity-40"
                   aria-label="Send"
                 >
                   <Send className="h-4 w-4" />
