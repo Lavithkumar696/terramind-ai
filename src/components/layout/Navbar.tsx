@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Globe2, Menu, X } from 'lucide-react';
 
 const NAV_LINKS = [
-  { label: 'Dashboard', href: '#dashboard' },
-  { label: 'AI Analyst', href: '#ai-analyst' },
-  { label: 'Explorer', href: '#explorer' },
-  { label: 'Preparedness', href: '#preparedness' },
-  { label: 'Sources', href: '#sources' },
+  { label: 'Dashboard', id: 'dashboard' },
+  { label: 'AI Analyst', id: 'ai-analyst' },
+  { label: 'Explorer', id: 'explorer' },
+  { label: 'Preparedness', id: 'preparedness' },
+  { label: 'Sources', id: 'sources' },
 ];
 
 export default function Navbar() {
@@ -20,6 +20,24 @@ export default function Navbar() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  const scrollToSection = useCallback((id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else if (id === 'top') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, []);
+
+  const handleNavClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+      e.preventDefault();
+      scrollToSection(id);
+      setOpen(false);
+    },
+    [scrollToSection]
+  );
 
   return (
     <motion.header
@@ -34,7 +52,11 @@ export default function Navbar() {
         }`}
         style={{ width: 'calc(100% - 1.5rem)' }}
       >
-        <a href="#top" className="flex items-center gap-2.5">
+        <a
+          href="#top"
+          onClick={(e) => handleNavClick(e, 'top')}
+          className="flex items-center gap-2.5"
+        >
           <span className="relative flex h-9 w-9 items-center justify-center rounded-xl glass-emerald">
             <Globe2 className="h-5 w-5 text-emerald" strokeWidth={1.8} />
             <span className="absolute inset-0 rounded-xl border border-emerald/30 animate-pulse-soft" />
@@ -51,9 +73,10 @@ export default function Navbar() {
 
         <ul className="hidden items-center gap-1 md:flex">
           {NAV_LINKS.map((l) => (
-            <li key={l.href}>
+            <li key={l.id}>
               <a
-                href={l.href}
+                href={`#${l.id}`}
+                onClick={(e) => handleNavClick(e, l.id)}
                 className="rounded-lg px-3.5 py-2 text-sm text-mint/75 transition-colors hover:bg-white/5 hover:text-mint"
               >
                 {l.label}
@@ -69,6 +92,7 @@ export default function Navbar() {
           </span>
           <a
             href="#dashboard"
+            onClick={(e) => handleNavClick(e, 'dashboard')}
             className="rounded-lg bg-gradient-to-br from-emerald to-ocean px-4 py-2 text-sm font-medium text-midnight transition-transform hover:scale-[1.03]"
           >
             Open Dashboard
@@ -94,10 +118,10 @@ export default function Navbar() {
           >
             <ul className="flex flex-col p-3">
               {NAV_LINKS.map((l) => (
-                <li key={l.href}>
+                <li key={l.id}>
                   <a
-                    href={l.href}
-                    onClick={() => setOpen(false)}
+                    href={`#${l.id}`}
+                    onClick={(e) => handleNavClick(e, l.id)}
                     className="block rounded-lg px-4 py-3 text-mint/80 hover:bg-white/5 hover:text-mint"
                   >
                     {l.label}
@@ -107,7 +131,7 @@ export default function Navbar() {
               <li>
                 <a
                   href="#dashboard"
-                  onClick={() => setOpen(false)}
+                  onClick={(e) => handleNavClick(e, 'dashboard')}
                   className="mt-2 block rounded-lg bg-gradient-to-br from-emerald to-ocean px-4 py-3 text-center font-medium text-midnight"
                 >
                   Open Dashboard

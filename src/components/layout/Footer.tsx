@@ -1,7 +1,22 @@
+import { useCallback } from 'react';
 import { Globe2, Github, Mail } from 'lucide-react';
 import { Reveal } from '@/components/ui/Reveal';
 
+interface FooterLink {
+  label: string;
+  href: string;
+  ext?: boolean;
+}
+
 export default function Footer() {
+  const scrollToSection = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('#') && href.length > 1) {
+      e.preventDefault();
+      const el = document.getElementById(href.slice(1));
+      el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, []);
+
   return (
     <footer className="relative border-t border-white/5 py-16">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald/40 to-transparent" />
@@ -26,29 +41,45 @@ export default function Footer() {
               </p>
             </div>
 
-            <FooterCol title="Platform" links={[
-              { label: 'Dashboard', href: '#dashboard' },
-              { label: 'AI Analyst', href: '#ai-analyst' },
-              { label: 'Explorer', href: '#explorer' },
-              { label: 'Preparedness', href: '#preparedness' },
-            ]} />
+            <FooterCol
+              title="Platform"
+              links={[
+                { label: 'Dashboard', href: '#dashboard' },
+                { label: 'AI Analyst', href: '#ai-analyst' },
+                { label: 'Explorer', href: '#explorer' },
+                { label: 'Preparedness', href: '#preparedness' },
+              ]}
+              onLinkClick={scrollToSection}
+            />
 
-            <FooterCol title="Data" links={[
-              { label: 'USGS Earthquakes', href: 'https://earthquake.usgs.gov', ext: true },
-              { label: 'NASA EONET', href: 'https://eonet.gsfc.nasa.gov', ext: true },
-              { label: 'GDACS', href: 'https://www.gdacs.org', ext: true },
-              { label: 'Methodology', href: '#sources' },
-            ]} />
+            <FooterCol
+              title="Data"
+              links={[
+                { label: 'USGS Earthquakes', href: 'https://earthquake.usgs.gov', ext: true },
+                { label: 'NASA EONET', href: 'https://eonet.gsfc.nasa.gov', ext: true },
+                { label: 'GDACS', href: 'https://www.gdacs.org', ext: true },
+                { label: 'Methodology', href: '#sources' },
+              ]}
+              onLinkClick={scrollToSection}
+            />
 
             <div>
               <h4 className="font-mono text-xs tracking-widest text-mint/40">CONNECT</h4>
               <div className="mt-4 flex gap-2">
-                <a href="#" className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/8 text-mint/60 hover:border-emerald/30 hover:text-emerald">
+                <button
+                  type="button"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/8 text-mint/60 hover:border-emerald/30 hover:text-emerald"
+                  aria-label="GitHub"
+                >
                   <Github className="h-4 w-4" />
-                </a>
-                <a href="#" className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/8 text-mint/60 hover:border-emerald/30 hover:text-emerald">
+                </button>
+                <button
+                  type="button"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/8 text-mint/60 hover:border-emerald/30 hover:text-emerald"
+                  aria-label="Email"
+                >
                   <Mail className="h-4 w-4" />
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -65,7 +96,15 @@ export default function Footer() {
   );
 }
 
-function FooterCol({ title, links }: { title: string; links: { label: string; href: string; ext?: boolean }[] }) {
+function FooterCol({
+  title,
+  links,
+  onLinkClick,
+}: {
+  title: string;
+  links: FooterLink[];
+  onLinkClick: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void;
+}) {
   return (
     <div>
       <h4 className="font-mono text-xs tracking-widest text-mint/40">{title.toUpperCase()}</h4>
@@ -76,6 +115,7 @@ function FooterCol({ title, links }: { title: string; links: { label: string; hr
               href={l.href}
               target={l.ext ? '_blank' : undefined}
               rel={l.ext ? 'noopener noreferrer' : undefined}
+              onClick={(e) => onLinkClick(e, l.href)}
               className="text-sm text-mint/55 transition-colors hover:text-emerald"
             >
               {l.label}
