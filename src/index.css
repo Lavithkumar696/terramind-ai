@@ -1,0 +1,149 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    margin: 0;
+    background-color: #061A1B;
+    color: #B8F3D0;
+    font-family: 'Inter', system-ui, sans-serif;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: rgba(57, 217, 138, 0.25);
+    color: #B8F3D0;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgba(6, 26, 27, 0.5);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, rgba(35, 120, 165, 0.4), rgba(57, 217, 138, 0.3));
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, rgba(35, 120, 165, 0.6), rgba(57, 217, 138, 0.5));
+  }
+}
+
+@layer components {
+  .glass {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.04),
+      rgba(255, 255, 255, 0.01)
+    );
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  .glass-emerald {
+    background: linear-gradient(
+      135deg,
+      rgba(57, 217, 138, 0.08),
+      rgba(35, 120, 165, 0.04)
+    );
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid rgba(57, 217, 138, 0.18);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.35),
+      inset 0 1px 0 rgba(184, 243, 208, 0.08);
+  }
+
+  .glass-dark {
+    background: rgba(6, 20, 26, 0.55);
+    backdrop-filter: blur(20px) saturate(130%);
+    -webkit-backdrop-filter: blur(20px) saturate(130%);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow:
+      0 8px 40px rgba(0, 0, 0, 0.45),
+      inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, #B8F3D0 0%, #39D98A 45%, #4FA8D8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .text-gradient-emerald {
+    background: linear-gradient(135deg, #B8F3D0, #39D98A);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .glow-emerald {
+    box-shadow: 0 0 24px rgba(57, 217, 138, 0.25), 0 0 48px rgba(57, 217, 138, 0.1);
+  }
+  .glow-ocean {
+    box-shadow: 0 0 24px rgba(35, 120, 165, 0.25), 0 0 48px rgba(35, 120, 165, 0.1);
+  }
+
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.04) 25%,
+      rgba(255, 255, 255, 0.08) 37%,
+      rgba(255, 255, 255, 0.04) 63%
+    );
+    background-size: 1000px 100%;
+    animation: shimmer 2.5s linear infinite;
+  }
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
